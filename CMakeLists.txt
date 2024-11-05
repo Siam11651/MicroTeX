@@ -148,7 +148,13 @@ target_include_directories(LaTeX PUBLIC src)
 
 # check operating system
 
-if (QT)
+if (SVG)
+    message(STATUS "We are working with SVG")
+    target_compile_definitions(LaTeX PUBLIC -DBUILD_SVG)
+    target_sources(LaTeX PRIVATE
+            src/platform/svg/graphic_svg.cpp
+            )
+elseif (QT)
     message(STATUS, "Cross platform build using Qt")
     target_compile_definitions(LaTeX PUBLIC -DBUILD_QT)
     find_package(QT NAMES Qt6 Qt5 COMPONENTS Gui Widgets PrintSupport REQUIRED)
